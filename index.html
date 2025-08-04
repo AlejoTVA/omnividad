@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omnividad - Suplementos</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #7b3f00;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .producto {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .producto img {
+      max-width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .producto h3 {
+      margin: 0.5rem 0;
+    }
+    .btn {
+      background: #7b3f00;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #carrito {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #7b3f00;
+      color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Omnividad - Suplementos Naturales</h1>
+  </header>  <section class="productos" id="productos">
+    <!-- Productos serán agregados aquí por JavaScript -->
+  </section>  <div id="carrito">
+    <p><strong>Carrito:</strong> <span id="listaCarrito">(vacío)</span></p>
+    <button class="btn" onclick="enviarPedido()">Enviar por WhatsApp</button>
+  </div>  <script>
+    const productos = [
+      { nombre: "Energizante Naranja", imagen: "img1.jpg" },
+      { nombre: "Colágeno + Biotina", imagen: "img2.jpg" },
+      { nombre: "Fibra con Sabor", imagen: "img3.jpg" },
+      { nombre: "Multivitamínico Líquido", imagen: "img4.jpg" }
+    ];
+
+    const contenedor = document.getElementById('productos');
+    const listaCarrito = document.getElementById('listaCarrito');
+    let carrito = [];
+
+    productos.forEach((prod, index) => {
+      const div = document.createElement('div');
+      div.className = 'producto';
+      div.innerHTML = `
+        <img src="${prod.imagen}" alt="${prod.nombre}" />
+        <h3>${prod.nombre}</h3>
+        <button class="btn" onclick="agregarAlCarrito('${prod.nombre}')">Agregar</button>
+      `;
+      contenedor.appendChild(div);
+    });
+
+    function agregarAlCarrito(nombre) {
+      carrito.push(nombre);
+      actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+      listaCarrito.textContent = carrito.join(', ');
+    }
+
+    function enviarPedido() {
+      const mensaje = encodeURIComponent(`Hola, quiero pedir: ${carrito.join(', ')}`);
+      window.open(`https://wa.me/5491138977524?text=${mensaje}`, '_blank');
+    }
+  </script></body>
+</html>
