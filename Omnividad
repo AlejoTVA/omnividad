@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suplementos - Tienda</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    h1 { text-align: center; }
+    .productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .producto { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .producto img { width: 100%; border-radius: 10px; }
+    .producto h2 { font-size: 18px; margin: 10px 0; }
+    .producto button { padding: 10px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    #carrito { margin-top: 30px; background: white; padding: 20px; border-radius: 10px; }
+    #whatsapp { margin-top: 20px; padding: 10px; background: #25D366; color: white; text-align: center; border-radius: 5px; text-decoration: none; display: block; }
+  </style>
+</head>
+<body>
+  <h1>Venta de Suplementos</h1>  <div class="productos">
+    <div class="producto">
+      <img src="img/suplemento1.jpg" alt="Producto 1">
+      <h2>Quemador Black Widow</h2>
+      <button onclick="agregarAlCarrito('Quemador Black Widow')">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="img/suplemento2.jpg" alt="Producto 2">
+      <h2>Termogénico Pink Venom</h2>
+      <button onclick="agregarAlCarrito('Termogénico Pink Venom')">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="img/suplemento3.jpg" alt="Producto 3">
+      <h2>Creatina Monohidrato</h2>
+      <button onclick="agregarAlCarrito('Creatina Monohidrato')">Agregar al carrito</button>
+    </div>
+    <!-- Puedes agregar más productos aquí -->
+  </div>  <div id="carrito">
+    <h2>Carrito de compras</h2>
+    <ul id="listaCarrito"></ul>
+  </div><a id="whatsapp" href="#" target="_blank">Enviar pedido por WhatsApp</a>
+
+  <script>
+    const carrito = [];
+    const listaCarrito = document.getElementById('listaCarrito');
+    const enlaceWhatsapp = document.getElementById('whatsapp');
+
+    function agregarAlCarrito(producto) {
+      carrito.push(producto);
+      actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+      listaCarrito.innerHTML = '';
+      carrito.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        listaCarrito.appendChild(li);
+      });
+      actualizarEnlaceWhatsapp();
+    }
+
+    function actualizarEnlaceWhatsapp() {
+      const mensaje = encodeURIComponent(`Hola, quiero pedir: \n${carrito.join('\n')}`);
+      enlaceWhatsapp.href = `https://wa.me/5491138977524?text=${mensaje}`;
+    }
+  </script></body>
+</html>
